@@ -29,8 +29,8 @@ lengths = range(1, args.max_length+1)
 for length in lengths:
     partial_ics = []
     for i in range(0, length):
-        byte_division = byte_array[i::length]
-        ic = compute_ic(byte_division)
+        byte_split = byte_array[i::length]
+        ic = compute_ic(byte_split)
         partial_ics.append(ic)
     #ics.append(sum(partial_ics))
     ics.append(np.mean(partial_ics))
