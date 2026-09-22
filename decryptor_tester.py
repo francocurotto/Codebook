@@ -22,10 +22,10 @@ for key_byte in range(BYTES):
     test = []
     for cipher_byte in byte_split:
         test_byte = cipher_byte ^ key_byte
-        try:
+        if test_byte < 0x20 or test_byte > 0x7e:
+            test_char = "❌"
+        else:
             test_char = bytearray([test_byte]).decode("utf-8")
-        except UnicodeDecodeError:
-            test_char = ""
         test.append(test_char)
     tests.append(test)
 
