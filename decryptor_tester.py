@@ -2,8 +2,9 @@ import argparse
 import pandas as pd
 
 # contstants
-BYTES = 128
-ALLOWED = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,'?! \n"
+BYTES = 256
+#ALLOWED = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.,'?! \n"
+ALLOWED = bytearray(range(32, 128))
 
 # get inputs
 parser = argparse.ArgumentParser()
@@ -33,11 +34,10 @@ for offset in range(args.split):
         if len(test) == len(byte_split):
             keys.append(key_byte)
             tests.append(test)
-
     # convert into csv
     results.append(pd.DataFrame(tests, index=keys))
 
 excel = f"TEST_{args.filename}_{args.split}.xlsx"
 with pd.ExcelWriter(excel, engine="openpyxl") as writer:
     for i, result in enumerate(results):
-        result.to_excel(writer, sheet_name=f"Offset {i + 1}")
+        result.to_excel(writer, sheet_name=f"Offset {i}")
